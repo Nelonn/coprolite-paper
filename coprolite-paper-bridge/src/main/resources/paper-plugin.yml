@@ -1,0 +1,4 @@
+main: me.nelonn.coprolite.paper.bridge.CoprolitePaperBridgePlugin
+name: coprolite-paper-bridge
+version: '${version}'
+api-version: '1.20'
