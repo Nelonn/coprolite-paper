@@ -7,6 +7,7 @@
     "Nelonn"
   ],
   "mixins": [
-    "coprolite-paper.mixins.json"
+    "coprolite-paper.mixins.json",
+    "coprolite-paper-std.mixins.json"
   ]
 }
