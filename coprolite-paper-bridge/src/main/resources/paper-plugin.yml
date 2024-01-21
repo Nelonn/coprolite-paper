@@ -1,4 +1,5 @@
-main: me.nelonn.coprolite.paper.bridge.CoprolitePaperBridgePlugin
+main: me.nelonn.coprolite.paper.bridge.Plugin
+bootstrapper: me.nelonn.coprolite.paper.bridge.Bootstrap
 name: coprolite-paper-bridge
 version: '${version}'
 api-version: '1.20'

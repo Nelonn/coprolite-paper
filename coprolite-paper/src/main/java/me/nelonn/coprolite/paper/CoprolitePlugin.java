@@ -24,12 +24,17 @@ import java.util.function.Function;
 public class CoprolitePlugin {
     public static final String KEY = "coprolite-paper:plugin";
 
+    public static final Event<Runnable> ON_BOOTSTRAP = new Event<>((callbacks) -> () -> {
+        for (Runnable callback : callbacks) {
+            callback.run();
+        }
+    });
+
     private static final Function<Iterable<Consumer<JavaPlugin>>, Consumer<JavaPlugin>> INVOKER = (callbacks) -> (plugin) -> {
         for (Consumer<JavaPlugin> callback : callbacks) {
             callback.accept(plugin);
         }
     };
-
     public static final Event<Consumer<JavaPlugin>> ON_LOAD = new Event<>(INVOKER);
     public static final Event<Consumer<JavaPlugin>> ON_ENABLE = new Event<>(INVOKER);
     public static final Event<Consumer<JavaPlugin>> ON_DISABLE = new Event<>(INVOKER);

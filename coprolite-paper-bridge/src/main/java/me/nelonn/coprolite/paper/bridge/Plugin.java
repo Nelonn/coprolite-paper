@@ -20,8 +20,8 @@ import me.nelonn.coprolite.api.CoproliteLoader;
 import me.nelonn.coprolite.paper.CoprolitePlugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CoprolitePaperBridgePlugin extends JavaPlugin {
-    public CoprolitePaperBridgePlugin() {
+public class Plugin extends JavaPlugin {
+    public Plugin() {
         CoproliteLoader.getInstance().getObjectShare().put(CoprolitePlugin.KEY, this);
     }
 
