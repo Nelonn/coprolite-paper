@@ -16,13 +16,19 @@
 
 package me.nelonn.coprolite.paper;
 
+import me.nelonn.coprolite.api.CoproliteLoader;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class CoprolitePlugin {
     public static final String KEY = "coprolite-paper:plugin";
+
+    public static @Nullable JavaPlugin getInstance() {
+        return (JavaPlugin) CoproliteLoader.getInstance().getObjectShare().get(CoprolitePlugin.KEY);
+    }
 
     public static final Event<Runnable> ON_BOOTSTRAP = new Event<>((callbacks) -> () -> {
         for (Runnable callback : callbacks) {
