@@ -16,6 +16,7 @@
 
 package me.nelonn.coprolite.paper.std.registryaccessor;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -27,21 +28,24 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Supplier;
 
 public class AttributeAccessor {
+
     @Nullable
     public static AttributeInstance getAttribute(@NotNull LivingEntity entity, @NotNull Attribute attribute, @NotNull Supplier<AttributeSupplier.Builder> builder) {
+        Holder<Attribute> attributeHolder = BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute);
         try {
-            return entity.getAttributes().getInstance(attribute);
+            return entity.getAttributes().getInstance(attributeHolder);
         } catch (Exception e) {
             AttributeSupplier supplier = builder.get().build();
             for (Attribute attr : BuiltInRegistries.ATTRIBUTE) {
                 try {
-                    AttributeInstance instance = supplier.getAttributeInstance(attr);
-                    entity.getAttributes().registerAttribute(attr);
+                    AttributeInstance instance = supplier.getAttributeInstance(attributeHolder);
+                    entity.getAttributes().registerAttribute(attributeHolder);
                     instance.load(instance.save());
                 } catch (Exception ignored) {
                 }
             }
         }
-        return entity.getAttributes().getInstance(attribute);
+        return entity.getAttributes().getInstance(attributeHolder);
     }
+
 }

@@ -5,18 +5,21 @@ plugins {
 group = rootProject.group
 version = rootProject.version
 
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:${project.properties["paper_api"].toString()}")
     compileOnly(project(":coprolite-paper"))
     compileOnly(files("../libs/compile/coprolite-api-0.0.1-SNAPSHOT.jar"))
 }
 
-tasks.named<JavaCompile>("compileJava") {
+tasks.withType<JavaCompile> {
+    options.release.set(21)
     options.encoding = "UTF-8"
 }
 
