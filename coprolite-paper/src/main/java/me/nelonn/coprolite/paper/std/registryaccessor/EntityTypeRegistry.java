@@ -46,7 +46,7 @@ public class EntityTypeRegistry {
         if (!dataFixerAnalogKey.getNamespace().equals("minecraft")) {
             throw new IllegalArgumentException("Vanilla analog must be one of vanilla entities");
         }
-        ResourceLocation key = new ResourceLocation(id);
+        ResourceLocation key = ResourceLocation.parse(id);
         DATAFIXER_TYPES.put(key.toString(), DATAFIXER_TYPES.get(dataFixerAnalogKey.toString()));
         EntityType<T> entry = type.build(id);
         Registry.register(BuiltInRegistries.ENTITY_TYPE, id, entry);
