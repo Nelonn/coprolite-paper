@@ -13,6 +13,8 @@ repositories {
     mavenCentral()
 }
 
+paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
+
 dependencies {
     paperweight.paperDevBundle(project.properties["paper_build"].toString())
     compileOnly(files("../libs/compile/coprolite-api-0.0.1-SNAPSHOT.jar"))
@@ -31,11 +33,13 @@ tasks.named<Copy>("processResources") {
     }
 }
 
-tasks.named("assemble").configure {
-    dependsOn("reobfJar")
-}
+tasks {
+    /*reobfJar {
+        remapperArgs.add("--mixin")
+    }
 
-tasks.reobfJar {
-    remapperArgs.add("--mixin")
+    assemble {
+        dependsOn("reobfJar")
+    }*/
 }
 
