@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.nelonn.coprolite.paper.std;
+package me.nelonn.coprolite.paper.std.command.api;
 
 import com.mojang.brigadier.CommandDispatcher;
 import me.nelonn.coprolite.paper.Event;

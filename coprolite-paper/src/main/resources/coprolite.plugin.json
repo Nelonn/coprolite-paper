@@ -8,6 +8,7 @@
   ],
   "mixins": [
     "coprolite-paper.mixins.json",
-    "coprolite-paper-std.mixins.json"
+    "coprolite-paper-std.mixins.json",
+    "coprolite-paper-std-command.mixins.json"
   ]
 }

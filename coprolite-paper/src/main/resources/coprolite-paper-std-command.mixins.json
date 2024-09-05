@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "me.nelonn.coprolite.paper.std.command.mixin",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ArgumentTypesAccessor",
+    "CommandsAccessor",
+    "CommandsMixin"
+  ]
+}

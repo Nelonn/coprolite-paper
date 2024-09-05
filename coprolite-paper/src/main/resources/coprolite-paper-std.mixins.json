@@ -5,9 +5,6 @@
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ArgumentTypesAccessor",
-    "CommandsAccessor",
-    "CommandsMixin",
     "DefaultAttributesAccessor",
     "DefaultAttributesMixin",
     "MixinCraftEntity",

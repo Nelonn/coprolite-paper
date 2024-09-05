@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.nelonn.coprolite.paper.std.mixin;
+package me.nelonn.coprolite.paper.std.command.mixin;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;

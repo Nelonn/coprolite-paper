@@ -1,7 +1,6 @@
 plugins {
     id("java")
     id("io.papermc.paperweight.userdev")
-    id("io.github.goooler.shadow")
 }
 
 group = rootProject.group
@@ -26,14 +25,14 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 
-tasks.named<Copy>("processResources") {
-    filteringCharset = "UTF-8"
-    filesMatching("coprolite.plugin.json") {
-        expand("version" to version)
-    }
-}
-
 tasks {
+    processResources {
+        filteringCharset = "UTF-8"
+        filesMatching("coprolite.plugin.json") {
+            expand("version" to version)
+        }
+    }
+
     /*reobfJar {
         remapperArgs.add("--mixin")
     }

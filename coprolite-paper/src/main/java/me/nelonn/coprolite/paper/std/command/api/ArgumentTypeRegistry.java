@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package me.nelonn.coprolite.paper.std;
+package me.nelonn.coprolite.paper.std.command.api;
 
 import com.mojang.brigadier.arguments.ArgumentType;
-import me.nelonn.coprolite.paper.std.mixin.ArgumentTypesAccessor;
+import me.nelonn.coprolite.paper.std.command.mixin.ArgumentTypesAccessor;
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
