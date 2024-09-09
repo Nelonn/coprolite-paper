@@ -17,17 +17,21 @@
 package me.nelonn.coprolite.paper.std.command.api;
 
 import com.mojang.brigadier.CommandDispatcher;
-import me.nelonn.coprolite.paper.Event;
-import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
+import org.bukkit.Bukkit;
+import org.bukkit.Server;
+import org.bukkit.craftbukkit.CraftServer;
 
-public interface CommandRegistrationCallback {
-    Event<CommandRegistrationCallback> EVENT = new Event<>((callbacks) -> (dispatcher, environment, commandRegistryAccess) -> {
-        for (CommandRegistrationCallback callback : callbacks) {
-            callback.register(dispatcher, environment, commandRegistryAccess);
-        }
-    });
+public final class CommandsRegistration {
+    public static void register(BrigadierCommand command) {
+        command.register(dispatcher());
+    }
 
-	void register(CommandDispatcher<CommandSourceStack> dispatcher, Commands.CommandSelection environment, CommandBuildContext commandRegistryAccess);
+    public static CommandDispatcher<CommandSourceStack> dispatcher(Server server) {
+        return ((CraftServer) server).getServer().getCommands().getDispatcher();
+    }
+
+    public static CommandDispatcher<CommandSourceStack> dispatcher() {
+        return dispatcher(Bukkit.getServer());
+    }
 }
