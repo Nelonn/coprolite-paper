@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     paperweight.paperDevBundle(project.properties["paper_build"].toString())
+    pluginRemapper("net.fabricmc:tiny-remapper:0.10.3:fat")
     compileOnly(files("../libs/compile/coprolite-api-0.0.1-SNAPSHOT.jar"))
     compileOnly("org.spongepowered:mixin:0.8.5")
 }
@@ -24,18 +25,19 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 
-tasks.named<Copy>("processResources") {
-    filteringCharset = "UTF-8"
-    filesMatching("coprolite.plugin.json") {
-        expand("version" to version)
+tasks {
+    processResources {
+        filteringCharset = "UTF-8"
+        filesMatching("coprolite.plugin.json") {
+            expand("version" to version)
+        }
+    }
+
+    reobfJar {
+        remapperArgs.add("--mixin")
+    }
+
+    assemble {
+        dependsOn("reobfJar")
     }
 }
-
-tasks.named("assemble").configure {
-    dependsOn("reobfJar")
-}
-
-tasks.reobfJar {
-    remapperArgs.add("--mixin")
-}
-

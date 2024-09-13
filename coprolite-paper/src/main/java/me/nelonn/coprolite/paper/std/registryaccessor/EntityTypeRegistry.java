@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Michael Neonov
+ * Copyright 2024 Michael Neonov <two.nelonn at gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,11 @@ package me.nelonn.coprolite.paper.std.registryaccessor;
 
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.types.Type;
+import com.mojang.serialization.Lifecycle;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.DefaultedMappedRegistry;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.util.datafix.fixes.References;
@@ -41,7 +42,7 @@ public class EntityTypeRegistry {
     }
 
     @NotNull
-    public <T extends Entity> EntityType<T> register(@NotNull String id, @NotNull EntityType.Builder type, @NotNull EntityType<? extends Entity> datafixerAnalog) {
+    public <T extends Entity> EntityType<T> register(@NotNull String id, @NotNull EntityType.Builder type, @NotNull EntityType<? extends Entity> clientSide, @NotNull EntityType<? extends Entity> datafixerAnalog) {
         ResourceLocation dataFixerAnalogKey = registry.getKey(datafixerAnalog);
         if (!dataFixerAnalogKey.getNamespace().equals("minecraft")) {
             throw new IllegalArgumentException("Vanilla analog must be one of vanilla entities");
@@ -49,18 +50,23 @@ public class EntityTypeRegistry {
         ResourceLocation key = new ResourceLocation(id);
         DATAFIXER_TYPES.put(key.toString(), DATAFIXER_TYPES.get(dataFixerAnalogKey.toString()));
         EntityType<T> entry = type.build(id);
-        Registry.register(BuiltInRegistries.ENTITY_TYPE, id, entry);
+        registry.registerMapping(registry.getId(clientSide), ResourceKey.create(registry.key(), new ResourceLocation(id)), entry, Lifecycle.stable());
         return entry;
     }
 
     @NotNull
-    public <T extends Entity> EntityType<T> register(@NotNull ResourceLocation id, @NotNull EntityType.Builder type, @NotNull EntityType<? extends Entity> datafixerAnalog) {
-        return register(id.toString(), type, datafixerAnalog);
+    public <T extends Entity> EntityType<T> register(@NotNull String id, @NotNull EntityType.Builder type, @NotNull EntityType<? extends Entity> clientSide) {
+        return register(id, type, clientSide, EntityType.MARKER);
     }
 
     @NotNull
-    public <T extends Entity> EntityType<T> register(@NotNull String id, @NotNull EntityType.Builder type) {
-        return register(id, type, EntityType.MARKER);
+    public <T extends Entity> EntityType<T> register(@NotNull ResourceLocation id, @NotNull EntityType.Builder type, @NotNull EntityType<? extends Entity> clientSide, @NotNull EntityType<? extends Entity> datafixerAnalog) {
+        return register(id.toString(), type, clientSide, datafixerAnalog);
+    }
+
+    @NotNull
+    public <T extends Entity> EntityType<T> register(@NotNull ResourceLocation id, @NotNull EntityType.Builder type, @NotNull EntityType<? extends Entity> clientSide) {
+        return register(id.toString(), type, clientSide);
     }
 
     static {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Michael Neonov
+ * Copyright 2024 Michael Neonov <two.nelonn at gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@ package me.nelonn.coprolite.paper.std.mixin;
 import com.google.common.base.Preconditions;
 import net.minecraft.core.registries.Registries;
 import org.bukkit.Registry;
-import org.bukkit.craftbukkit.CraftRegistry;
-import org.bukkit.craftbukkit.entity.CraftEntityType;
-import org.bukkit.craftbukkit.util.CraftNamespacedKey;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftEntityType;
+import org.bukkit.craftbukkit.v1_20_R3.util.CraftNamespacedKey;
+import org.bukkit.craftbukkit.v1_20_R3.CraftRegistry;
 import org.bukkit.entity.EntityType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;

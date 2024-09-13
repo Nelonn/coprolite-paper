@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Michael Neonov
+ * Copyright 2024 Michael Neonov <two.nelonn at gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,24 @@
  * limitations under the License.
  */
 
-package me.nelonn.coprolite.paper.std.mixin;
+package me.nelonn.coprolite.paper.std.command.api;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import org.bukkit.Bukkit;
+import org.bukkit.Server;
+import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
 
-@Mixin(Commands.class)
-public interface CommandsAccessor {
+public final class CommandsRegistration {
+    public static void register(BrigadierCommand command) {
+        command.register(dispatcher());
+    }
 
-    @Accessor
-    CommandDispatcher<CommandSourceStack> getDispatcher();
+    public static CommandDispatcher<CommandSourceStack> dispatcher(Server server) {
+        return ((CraftServer) server).getServer().getCommands().getDispatcher();
+    }
 
+    public static CommandDispatcher<CommandSourceStack> dispatcher() {
+        return dispatcher(Bukkit.getServer());
+    }
 }

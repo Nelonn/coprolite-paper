@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Michael Neonov
+ * Copyright 2024 Michael Neonov <two.nelonn at gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package me.nelonn.coprolite.paper.std.registryaccessor;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -31,21 +30,20 @@ public class AttributeAccessor {
 
     @Nullable
     public static AttributeInstance getAttribute(@NotNull LivingEntity entity, @NotNull Attribute attribute, @NotNull Supplier<AttributeSupplier.Builder> builder) {
-        Holder<Attribute> attributeHolder = BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute);
         try {
-            return entity.getAttributes().getInstance(attributeHolder);
+            return entity.getAttributes().getInstance(attribute);
         } catch (Exception e) {
             AttributeSupplier supplier = builder.get().build();
             for (Attribute attr : BuiltInRegistries.ATTRIBUTE) {
                 try {
-                    AttributeInstance instance = supplier.getAttributeInstance(attributeHolder);
-                    entity.getAttributes().registerAttribute(attributeHolder);
+                    AttributeInstance instance = supplier.getAttributeInstance(attr);
+                    entity.getAttributes().registerAttribute(attr);
                     instance.load(instance.save());
                 } catch (Exception ignored) {
                 }
             }
         }
-        return entity.getAttributes().getInstance(attributeHolder);
+        return entity.getAttributes().getInstance(attribute);
     }
 
 }

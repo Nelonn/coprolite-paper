@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Michael Neonov
+ * Copyright 2024 Michael Neonov <two.nelonn at gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,11 @@
  * limitations under the License.
  */
 
-package me.nelonn.coprolite.paper.std.mixin;
+package me.nelonn.coprolite.paper.std.command.api;
 
-import net.minecraft.commands.synchronization.ArgumentTypeInfo;
-import net.minecraft.commands.synchronization.ArgumentTypeInfos;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import com.mojang.brigadier.CommandDispatcher;
+import net.minecraft.commands.CommandSourceStack;
 
-import java.util.Map;
-
-@Mixin(ArgumentTypeInfos.class)
-public interface ArgumentTypesAccessor {
-    @Accessor("BY_CLASS")
-    static Map<Class<?>, ArgumentTypeInfo<?, ?>> fabric_getClassMap() {
-        throw new AssertionError("");
-    }
+public interface BrigadierCommand {
+    void register(CommandDispatcher<CommandSourceStack> dispatcher);
 }

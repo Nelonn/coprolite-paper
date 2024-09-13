@@ -23,9 +23,11 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 
-tasks.named<Copy>("processResources") {
-    filteringCharset = "UTF-8"
-    filesMatching("paper-plugin.yml") {
-        expand("version" to version)
+tasks {
+    processResources {
+        filteringCharset = "UTF-8"
+        filesMatching("paper-plugin.yml") {
+            expand("version" to version)
+        }
     }
 }
