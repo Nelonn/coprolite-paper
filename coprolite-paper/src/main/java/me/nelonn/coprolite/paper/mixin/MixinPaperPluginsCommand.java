@@ -87,7 +87,7 @@ public abstract class MixinPaperPluginsCommand {
         return instance.formatted(integer + CoproliteLoader.getInstance().getAllPlugins().size());
     }
 
-    @Inject(method = "execute", at = @At(value = "INVOKE", target = "Lorg/bukkit/command/CommandSender;sendMessage(Lnet/kyori/adventure/text/Component;)V", ordinal = 1))
+    @Inject(method = "execute", at = @At(value = "INVOKE", target = "Lorg/bukkit/command/CommandSender;sendMessage(Lnet/kyori/adventure/text/Component;)V", ordinal = 0))
     private void coprolite_paper$sendPlugins(CommandSender sender, String currentAlias, String[] args, CallbackInfoReturnable<Boolean> cir) {
         TreeMap<String, PluginMetadata> coprolitePlugins = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         for (PluginContainer plugin : CoproliteLoader.getInstance().getAllPlugins()) {
